@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
+import { Card, Spinner, Button} from "@blueprintjs/core";
 import 'normalize.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import getPage from './page-request';
+import './index.css';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [],
-      hasMore: true
+      hasMore: true,
+      isDark: false,
     };
     this.page = 1;
     this.fetchMoreData();
+    console.log(this.state.isDark);
   };
 
   onSuccess = (data) => {
@@ -41,41 +45,51 @@ class App extends React.Component {
     this.page++;
   };
 
+  setDark = () => {
+    if (this.state.isDark) {
+      this.setState({ isDark: false });
+      console.log(this.state.isDark);
+    } else {
+      this.setState({ isDark: true });
+      console.log(this.state.isDark);
+    }
+  };
+
+  themeControl = (bool) => {
+
+  };
+
   render() {
-    const style = {
-      flex: "10%",
-      border: "1px solid green",
-      margin: 6,
-      padding: 8
-    };
     const imgStlye = {
       display: "block",
       marginLeft: "auto",
       marginRight: "auto",
-      width: "50%",
       height: "auto"
     };
     return (
       <div>
-        <h1>demo: react-infinite-scroll-component</h1>
+        <h1 style={{color: "lawngreen"}}>demo: react-infinite-scroll-component</h1>
+        <Button onClick={this.setDark}></Button>
         <hr />
         <InfiniteScroll
-          style={{display: "flex", flexWrap: "wrap"}}
+          className="infinite-scroll"
           dataLength={this.state.items.length}
           next={this.fetchMoreData}
           hasMore={this.state.hasMore}
-          loader={<h4>Loading...</h4>}
+          loader={<Spinner/>}
           endMessage={
-            <div style={{ display: "block", textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </div>
+            <p>Yay! You have seen it all</p>  
           }
         >
           {this.state.items.map((v, index) => (
-            <div style={style} key={index}>
-              <img style={imgStlye} src={v.thumbnailUrl}/>
-              <h2>{v.title}</h2>
-            </div>
+            <Card className="item-div" key={index}>
+              <div>
+                <img style={imgStlye} src={v.thumbnailUrl}/>
+              </div>
+              <div>
+                <h2>{v.title}</h2>
+              </div>
+            </Card>
           ))}
         </InfiniteScroll>
       </div>
