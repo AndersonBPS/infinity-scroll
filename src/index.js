@@ -43,35 +43,41 @@ class App extends React.Component {
 
   render() {
     const style = {
-      width: 200,
+      flex: "10%",
       border: "1px solid green",
       margin: 6,
       padding: 8
+    };
+    const imgStlye = {
+      display: "block",
+      marginLeft: "auto",
+      marginRight: "auto",
+      width: "50%",
+      height: "auto"
     };
     return (
       <div>
         <h1>demo: react-infinite-scroll-component</h1>
         <hr />
-        <div style={{display:"flex"}}>
-          <InfiniteScroll
-            dataLength={this.state.items.length}
-            next={this.fetchMoreData}
-            hasMore={this.state.hasMore}
-            loader={<h4>Loading...</h4>}
-            endMessage={
-              <p style={{ textAlign: "center" }}>
-                <b>Yay! You have seen it all</b>
-              </p>
-            }
-          >
-            {this.state.items.map((v, index) => (
-              <div style={style} key={index}>
-                <img style={{height:"auto"}} src={v.thumbnailUrl}/>
-                <h2>{v.title}</h2>
-              </div>
-            ))}
-          </InfiniteScroll>
-        </div>
+        <InfiniteScroll
+          style={{display: "flex", flexWrap: "wrap"}}
+          dataLength={this.state.items.length}
+          next={this.fetchMoreData}
+          hasMore={this.state.hasMore}
+          loader={<h4>Loading...</h4>}
+          endMessage={
+            <div style={{ display: "block", textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </div>
+          }
+        >
+          {this.state.items.map((v, index) => (
+            <div style={style} key={index}>
+              <img style={imgStlye} src={v.thumbnailUrl}/>
+              <h2>{v.title}</h2>
+            </div>
+          ))}
+        </InfiniteScroll>
       </div>
     );
   }
