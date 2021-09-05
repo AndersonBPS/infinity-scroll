@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/infinity-scroll/static/css/main.77df8c6b.chunk.css",
+    "main.js": "/infinity-scroll/static/js/main.d7b5c0e0.chunk.js",
+    "main.js.map": "/infinity-scroll/static/js/main.d7b5c0e0.chunk.js.map",
+    "runtime-main.js": "/infinity-scroll/static/js/runtime-main.6014caf2.js",
+    "runtime-main.js.map": "/infinity-scroll/static/js/runtime-main.6014caf2.js.map",
+    "static/css/2.fd64ab5d.chunk.css": "/infinity-scroll/static/css/2.fd64ab5d.chunk.css",
+    "static/js/2.0402e83d.chunk.js": "/infinity-scroll/static/js/2.0402e83d.chunk.js",
+    "static/js/2.0402e83d.chunk.js.map": "/infinity-scroll/static/js/2.0402e83d.chunk.js.map",
+    "index.html": "/infinity-scroll/index.html",
+    "static/css/2.fd64ab5d.chunk.css.map": "/infinity-scroll/static/css/2.fd64ab5d.chunk.css.map",
+    "static/css/main.77df8c6b.chunk.css.map": "/infinity-scroll/static/css/main.77df8c6b.chunk.css.map",
+    "static/js/2.0402e83d.chunk.js.LICENSE.txt": "/infinity-scroll/static/js/2.0402e83d.chunk.js.LICENSE.txt",
+    "static/media/blueprint-icons.css": "/infinity-scroll/static/media/icons-20.cde033c5.eot"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6014caf2.js",
+    "static/css/2.fd64ab5d.chunk.css",
+    "static/js/2.0402e83d.chunk.js",
+    "static/css/main.77df8c6b.chunk.css",
+    "static/js/main.d7b5c0e0.chunk.js"
+  ]
+}
