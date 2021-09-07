@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
-import { Card, Spinner, Switch} from "@blueprintjs/core";
+import { Card, Spinner, Switch, Elevation, Navbar, NavbarHeading, NavbarGroup, Alignment} from "@blueprintjs/core";
 import 'normalize.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
@@ -74,9 +74,15 @@ class App extends React.Component {
     };
     return (
       <div>
-        <h1 style={{color: "lawngreen"}}>demo: react-infinite-scroll-component</h1>
-        <Switch onChange={this.setDark} labelElement={<b>Theme</b>}/>
-        <hr />
+        <Navbar>
+          <NavbarGroup align={Alignment.LEFT}>
+            <h1 style={{color: "lawngreen"}}>demo: my-code-capabilities</h1>
+          </NavbarGroup>
+          <NavbarGroup align={Alignment.RIGHT}>
+            <h3 style={{height: "25px"}}>Tema Escuro</h3>
+            <Switch onChange={this.setDark}/>
+          </NavbarGroup>
+        </Navbar>
         <InfiniteScroll
           className="infinite-scroll"
           dataLength={this.state.items.length}
@@ -94,7 +100,7 @@ class App extends React.Component {
           }
         >
           {this.state.items.map((v, index) => (
-            <Card className="item-div-dark" key={index}>
+            <Card className="item-div-dark" key={index} elevation={Elevation.THREE}>
               <div>
                 <img style={imgStlye} src={v.thumbnailUrl}/>
               </div>
