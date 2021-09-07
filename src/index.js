@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
-import { Card, Spinner, Button} from "@blueprintjs/core";
+import { Card, Spinner, Switch} from "@blueprintjs/core";
 import 'normalize.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
@@ -14,11 +14,10 @@ class App extends React.Component {
     this.state = {
       items: [],
       hasMore: true,
-      isDark: false,
+      isDark: true,
     };
     this.page = 1;
     this.fetchMoreData();
-    console.log(this.state.isDark);
   };
 
   onSuccess = (data) => {
@@ -35,7 +34,7 @@ class App extends React.Component {
   };
 
   fetchMoreData = () => {
-    if (this.state.items.length >= 250) {
+    if (this.state.items.length >= 500) {
       this.setState({ hasMore: false });
       return;
     }
@@ -45,21 +44,28 @@ class App extends React.Component {
     this.page++;
   };
 
+  /*
+  themeControl = (bool) => {
+    if (bool) {
+      return ["item-div-bright", document.body.style.backgroundColor = "white"]
+    } else {
+      return ["item-div-dark", document.body.style.backgroundColor = "black"]
+    }
+  };
+  */
   setDark = () => {
     if (this.state.isDark) {
       this.setState({ isDark: false });
-      console.log(this.state.isDark);
+      //return themeControl(false)[1];
     } else {
       this.setState({ isDark: true });
-      console.log(this.state.isDark);
+      //return themeControl(true)[1];
     }
   };
-
-  themeControl = (bool) => {
-
-  };
+  
 
   render() {
+    console.log(this.state.isDark);
     const imgStlye = {
       display: "block",
       marginLeft: "auto",
@@ -69,20 +75,26 @@ class App extends React.Component {
     return (
       <div>
         <h1 style={{color: "lawngreen"}}>demo: react-infinite-scroll-component</h1>
-        <Button onClick={this.setDark}></Button>
+        <Switch onChange={this.setDark} labelElement={<b>Theme</b>}/>
         <hr />
         <InfiniteScroll
           className="infinite-scroll"
           dataLength={this.state.items.length}
           next={this.fetchMoreData}
           hasMore={this.state.hasMore}
-          loader={<Spinner/>}
+          loader={
+            <div className="overlay">
+              <div style={{justifyContent: "center", alignItems:"center"}}>
+                <Spinner/>
+              </div>
+            </div>
+          }
           endMessage={
             <p>Yay! You have seen it all</p>  
           }
         >
           {this.state.items.map((v, index) => (
-            <Card className="item-div" key={index}>
+            <Card className="item-div-dark" key={index}>
               <div>
                 <img style={imgStlye} src={v.thumbnailUrl}/>
               </div>
