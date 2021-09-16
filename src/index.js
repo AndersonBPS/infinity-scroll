@@ -10,6 +10,8 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import getPage from './page-request';
 import './index.css';
 
+import { Box } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -167,13 +169,20 @@ class App extends React.Component {
             dataLength={this.state.items.length}
             next={this.fetchMoreData}
             hasMore={this.state.hasMore}
-            loader={
-              <div className="overlay">
-                <div style={{justifyContent: "center", alignItems:"center"}}>
-                  <Spinner/>
-                </div>
-              </div>
-            }
+            loader={Array.from(new Array(10)).map((v, index) => (
+              <Card className={useStyles} key={index}>
+                <Skeleton variant="rectangular" height={344} />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    <Skeleton width="20%" />
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    <Skeleton/>
+                    <Skeleton/>
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
             endMessage={
               <p>Yay! You have seen it all</p>  
             }
