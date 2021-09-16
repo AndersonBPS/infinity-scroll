@@ -1,12 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {render} from 'react-dom';
-import { Card, Spinner, Switch, Elevation, Navbar, NavbarHeading, NavbarGroup, Alignment} from "@blueprintjs/core";
+import { Spinner, Switch} from "@blueprintjs/core";
+import { AppBar, Toolbar } from '@material-ui/core';
+import SearchBox from './search';
 import 'normalize.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import getPage from './page-request';
 import './index.css';
+
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import { createTheme, ThemeProvider, makeStyles, responsiveFontSizes } from '@material-ui/core/styles';
+
+import { ptBR } from '@material-ui/core/locale';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +28,13 @@ class App extends React.Component {
     };
     this.page = 1;
     this.fetchMoreData();
+  };
+
+  onSearch = () => {
+    let searchData = SearchBox().props.result;
+    this.setState({
+      items: this.state.items.concat(searchData)
+    });
   };
 
   onSuccess = (data) => {
@@ -62,55 +79,125 @@ class App extends React.Component {
       //return themeControl(true)[1];
     }
   };
-  
 
   render() {
     console.log(this.state.isDark);
-    const imgStlye = {
-      display: "block",
-      marginLeft: "auto",
-      marginRight: "auto",
-      height: "auto"
-    };
+    const useStyles = makeStyles({
+      root: {
+        maxWidth: 345,
+      },
+      media: {
+        height: 140,
+      },
+    });
+    let theme = createTheme({
+      palette: {
+        primary: {
+          light: '#84ffff',
+          main: '#ffffffde',
+          dark: '#84ffff',
+          contrastText: '#ffffffde',
+        },
+        secondary: {
+          light: '#01579b',
+          main: '#01579b',
+          dark: '#01579b',
+          contrastText: '#01579b',
+        },
+      },
+      typography: {
+        fontSize: 15,
+        fontFamily: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+          '"Apple Color Emoji"',
+          '"Segoe UI Emoji"',
+          '"Segoe UI Symbol"',
+        ].join(','),
+      },
+      overrides: {
+        MuiFormControl: {
+          root: {
+            backgroundColor: "grey",
+          },
+        },
+        MuiInputBase: { //texto escrito no imput pelo usuário
+          input: {
+            color: "white",
+          },
+        },
+        MuiInputLabel: {
+          animated: {
+            color: "white",
+          },
+        },
+        MuiIconButton: {
+          root: {
+            color: "white",
+          },
+        },
+        MuiFilledInput: {
+          root: {
+            padding: '10px 10px',
+          },
+        },
+      },
+    }, ptBR);
+    theme = responsiveFontSizes(theme);    
     return (
-      <div>
-        <Navbar>
-          <NavbarGroup align={Alignment.LEFT}>
-            <h1 style={{color: "lawngreen"}}>demo: my-code-capabilities</h1>
-          </NavbarGroup>
-          <NavbarGroup align={Alignment.RIGHT}>
-            <h3 style={{height: "25px"}}>Tema Escuro</h3>
-            <Switch onChange={this.setDark}/>
-          </NavbarGroup>
-        </Navbar>
-        <InfiniteScroll
-          className="infinite-scroll"
-          dataLength={this.state.items.length}
-          next={this.fetchMoreData}
-          hasMore={this.state.hasMore}
-          loader={
-            <div className="overlay">
-              <div style={{justifyContent: "center", alignItems:"center"}}>
-                <Spinner/>
+      <ThemeProvider theme={theme}>
+        <div>
+          <AppBar style={{backgroundColor: "#393939"}} position="static">
+            <Toolbar style={{display: "grid", gridTemplateColumns: "18% 64% 18%"}}>
+              <Typography align="center" variant="h6">demo: my-code-capabilities</Typography>
+              <SearchBox arr={this.state.items}/>
+              <div style={{display: "grid", gridTemplateColumns: "6fr 1fr"}}>
+                <Typography align="right" variant="body2">Tema escuro</Typography>
+                <Switch onChange={this.setDark}/>
               </div>
-            </div>
-          }
-          endMessage={
-            <p>Yay! You have seen it all</p>  
-          }
-        >
-          {this.state.items.map((v, index) => (
-            <Card className="item-div-dark" key={index} elevation={Elevation.THREE}>
-              <div>
-                <img style={imgStlye} src={v.thumbnailUrl}/>
+            </Toolbar>
+          </AppBar>
+          <InfiniteScroll
+            className="infinite-scroll"
+            dataLength={this.state.items.length}
+            next={this.fetchMoreData}
+            hasMore={this.state.hasMore}
+            loader={
+              <div className="overlay">
+                <div style={{justifyContent: "center", alignItems:"center"}}>
+                  <Spinner/>
+                </div>
               </div>
-              <div>
-                <h2>{v.title}</h2>
-              </div>
-            </Card>
-          ))}
-        </InfiniteScroll>
-      </div>
+            }
+            endMessage={
+              <p>Yay! You have seen it all</p>  
+            }
+          >
+            {this.state.items.map((v, index) => (
+              <Card className={useStyles} key={index}>
+                <CardMedia
+                  style={{ height: "344px" }}
+                  image={v.thumbnailUrl}
+                  title="Contemplative Reptile"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Título
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {v.title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </InfiniteScroll>
+        </div>
+      </ThemeProvider>
     );
   }
 }

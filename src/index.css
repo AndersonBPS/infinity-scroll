@@ -7,21 +7,7 @@ body {
     margin: 30px;
     display: grid;
     grid-gap: 30px;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
-
-.item-div-dark {
-    width: 100%;
-    background-color: #3b3b3b;
-    border: 1px solid green;
-    padding: 8px;
-}
-
-.item-div-light {
-    width: 100%;
-    background-color: #adadad;
-    border: 1px solid green;
-    padding: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .overlay{
@@ -44,6 +30,7 @@ body {
 
 .bp3-control.bp3-switch:not(.bp3-align-right) {
     padding-left: 47px;
+    align-self: center;
 }
 .bp3-control.bp3-switch:hover input:checked ~ .bp3-control-indicator {
     background: #21611b;
@@ -52,7 +39,7 @@ body {
     background: #257c1d;
 }
 
-.bp3-navbar {
-    background-color: rgb(0, 0, 0);
-    box-shadow: 0 0 0 1px rgb(0 128 0), 0 0 0 rgb(16 22 26 / 0%), 0 1px 1px rgb(16 22 26 / 20%);
+.uxODnJjv2XZbTVVu8CQWA {
+    position: absolute;
+    width: 500px
 }
