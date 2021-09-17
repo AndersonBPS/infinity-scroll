@@ -1,6 +1,6 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 export default function SearchBox(props) {
   return (
@@ -12,7 +12,7 @@ export default function SearchBox(props) {
         SearchBox
         options={props.arr.map((option) => option.title)}
         renderInput={(params) => (
-          <TextField {...params} placeholder="Pesquisar" margin="none" variant="filled" />
+          <TextField {...params} placeholder="Pesquisar" margin="none" variant="outlined" />
         )}
       />
     </div>
