@@ -26,7 +26,6 @@ import { FormGroup } from '@mui/material';
 import { FormControlLabel } from '@mui/material';
 //import { ptBR } from '@mui/material/locale';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -88,6 +87,8 @@ class App extends React.Component {
         mode: this.state.mode,
         primary: {
           main: '#096c90',
+          light: '#0066ff',
+          dark: '#00000',
         },
         secondary: {
           main: '#04f4f5',
@@ -108,6 +109,7 @@ class App extends React.Component {
             </Toolbar>
           </AppBar>
           <InfiniteScroll
+          style={{backgroundColor: customTheme.palette.background.default}}
           dataLength={this.state.items.length}
           next={this.fetchMoreData}
           hasMore={this.state.hasMore}
